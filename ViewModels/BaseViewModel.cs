@@ -8,18 +8,18 @@ namespace CalculateurAge.ViewModels;
 public class BaseViewModel : INotifyPropertyChanged
 {
     //L'évènement: le moteur binding s'y  abonne
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     //Previent la vue qu'une propriété a changé
     // ?. : ne fait rien si personne n'est abonné
     protected void OnPropertyChanged(
-        [CallerMemberName] string nom = null
+        [CallerMemberName] string? nom = null
     ) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nom));
 
 
     //Affecte une valeur ET notifie, en une seule ligne
     //Renvoie true si la valeur a réellement changé
-    protected bool SetField<T>(ref T champ, T valeur, [CallerMemberName] string nom = null)
+    protected bool SetField<T>(ref T champ, T valeur, [CallerMemberName] string? nom = null)
     {
 
         //Garde fou: eveite les notifications inutiles
