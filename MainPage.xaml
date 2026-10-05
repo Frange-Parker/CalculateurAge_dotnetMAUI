@@ -7,11 +7,20 @@
    <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="12">
             <Label Text="Nom" FontSize="16"/>
-            <Entry x:Name="entryNom" Placeholder="Votre nom"/>
+            
+            <!-- Text lié à Nom du ViewModel, dans les deux sens -->
+            <Entry Text="{Binding Nom, Mode=TwoWay}" Placeholder="Votre nom"/>
             <Label Text="Date de naissance" FontSize="16"/>
-            <DatePicker x:Name="pickerDate"/>
-            <Button x:Name="btnCalculer" Text="Calculer" Clicked="OnCalculerClicked"/>
-            <Label x:Name="lblResultat" FontSize="20" IsVisible="False"/>
+            
+            <!-- Date liée à DateNaissance du ViewModel -->
+            <DatePicker Date="{Binding DateNaissance, Mode=TwoWay}"/>
+            
+            <!-- Command remplace Clicked ; le bouton se grise tant que le nom est vide -->
+            <Button Text="Calculer" Command="{Binding CalculerCommand}"/>
+            
+            <!-- Résultat-->
+            <Label Text="{Binding Resultat}" FontSize="20"
+                   IsVisible="{Binding ResultatVisible}"/>
         </VerticalStackLayout>
     </ScrollView>
 
