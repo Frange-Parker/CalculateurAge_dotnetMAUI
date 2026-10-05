@@ -2,9 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CalculateurAge.Views.ResultatPage"
-             Title="ResultatPage">
+             Title="Résultat">
+
     <VerticalStackLayout Padding="20" Spacing="16">
-        <Label x:Name="lblMessage" FontSize="22"/>               <!-- Rempli depuis le code-behind -->
-        <Button Text="Retour" Clicked="OnRetourClicked"/>        <!-- Retour à la page précédente -->
+
+        <!-- Message reçu via la navigation propriété Message du ResultatViewModel -->
+        <Label Text="{Binding Message}" FontSize="22"/>
+
+        <!-- Retour : commande du ViewModel, plus de Clicked -->             <!-- Rempli depuis le code-behind -->
+        <Button Text="Retour" Command="{Binding RetourCommand}"/>        <!-- Retour à la page précédente -->
     </VerticalStackLayout>
+
 </ContentPage>

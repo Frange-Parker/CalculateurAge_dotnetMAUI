@@ -6,21 +6,45 @@
 
    <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="12">
+
+            <!-- Saisie du nom -->
             <Label Text="Nom" FontSize="16"/>
-            
-            <!-- Text lié à Nom du ViewModel, dans les deux sens -->
+            <!-- Text lié à la propriété Nom du ViewModel -->
             <Entry Text="{Binding Nom, Mode=TwoWay}" Placeholder="Votre nom"/>
+
+            <!-- Choix de la date de naissance -->
             <Label Text="Date de naissance" FontSize="16"/>
-            
-            <!-- Date liée à DateNaissance du ViewModel -->
+            <!-- Date liée à DateNaissance-->
             <DatePicker Date="{Binding DateNaissance, Mode=TwoWay}"/>
-            
-            <!-- Command remplace Clicked ; le bouton se grise tant que le nom est vide -->
+
+            <!-- Message d'erreur (date future), visible seulement s'il y a une erreur -->
+            <Label Text="{Binding MessageErreur}" TextColor="Red"
+                   IsVisible="{Binding ErreurVisible}"/>
+
+            <!-- Boutons : Command est lié à une commande du ViewModel (il n y a plus de Clicked) -->
             <Button Text="Calculer" Command="{Binding CalculerCommand}"/>
-            
-            <!-- Résultat-->
-            <Label Text="{Binding Resultat}" FontSize="20"
-                   IsVisible="{Binding ResultatVisible}"/>
+            <Button Text="Effacer" Command="{Binding EffacerCommand}"/>
+
+            <!-- Zone de résultat : visible seulement après un calcul -->
+            <VerticalStackLayout Spacing="8" IsVisible="{Binding ResultatVisible}">
+                <Label Text="{Binding Resultat}" FontSize="20"/>
+                <Label Text="{Binding Statut}" FontSize="16" FontAttributes="Bold"/>
+                <Label Text="{Binding ProchainAnniversaire}" FontSize="16"/>
+                <Button Text="Voir le détail" Command="{Binding AfficherDetailsCommand}"/>
+            </VerticalStackLayout>
+
+            <!-- Historique des calculs -->
+            <Label Text="Historique" FontSize="16" FontAttributes="Bold"/>
+            <!-- BindableLayout : génère un Label par élément de la liste Historique -->
+            <VerticalStackLayout Spacing="4" BindableLayout.ItemsSource="{Binding Historique}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <!-- "." = l'élément courant -->
+                        <Label Text="{Binding .}"/>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
         </VerticalStackLayout>
     </ScrollView>
 
