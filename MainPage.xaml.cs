@@ -1,4 +1,7 @@
-﻿namespace CalculateurAge
+﻿using CalculateurAge.Views;// Pour accéder a ResultatPage
+
+
+namespace CalculateurAge
 {
     public partial class MainPage : ContentPage
     {
@@ -10,7 +13,7 @@
 
         // Gestionnaire appelé au clic du bouton Calculer
         // sender = le contrôle cliqué; e = données de l'événement
-        private void OnCalculerClicked(object sender, EventArgs e)
+        private async void OnCalculerClicked(object sender, EventArgs e)
         {
             // Validation : on refuse un nom vide.
             if (string.IsNullOrWhiteSpace(entryNom.Text))
@@ -28,10 +31,10 @@
             // on retire une année.
             if (d.Date > DateTime.Today.AddYears(-age)) age--;
 
-            // On écrit DIRECTEMENT dans les contrôles : c'est
-            // précisément ce que le MVVM va supprimer.
-            lblResultat.Text = $"{entryNom.Text}, vous avez {age} ans";
-            lblResultat.IsVisible = true;
+             // On va vers ResultatPage en passant le nom et l'age dans l'URL (apres "?", separes par "&").
+            // EscapeDataString protege les caracteres speciaux du nom (espace, &, accents...).
+            await Shell.Current.GoToAsync(
+                $"{nameof(ResultatPage)}?nom={Uri.EscapeDataString(entryNom.Text)}&age={age}");
         }
     }
 }
